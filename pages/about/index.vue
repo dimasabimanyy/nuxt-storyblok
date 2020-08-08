@@ -1,16 +1,32 @@
 <template>
-    <div>
-        <h1>About Us</h1>
-        <p>We're coder person</p>
+    <div id="about-page">
+        <h1>{{ title }}</h1>
+        <p>{{ content }}</p>
     </div>
 </template>
 
 <script>
 export default {
-    
+    asyncData(context) {
+        return context.app.$storyapi.get('cdn/stories/about', {
+            version: 'draft'
+        }).then(res => {
+            return {
+                title: res.data.story.content.title,
+                content: res.data.story.content.content
+            }
+        });
+    }
 }
 </script>
 
-<style lang="sass">
-
+<style scoped>
+#about-page{
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+#about-page p{
+    white-space: pre-line;
+}
 </style>
