@@ -1,5 +1,5 @@
 <template>
-    <div id="about-page">
+    <div id="about-page" v-editable="blok">
         <h1>{{ title }}</h1>
         <p>{{ content }}</p>
     </div>
@@ -12,6 +12,7 @@ export default {
             version: 'draft'
         }).then(res => {
             return {
+                blok: res.data.story.content,
                 title: res.data.story.content.title,
                 content: res.data.story.content.content
             }
